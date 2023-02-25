@@ -22,11 +22,11 @@ void fill_multi_array(const Container & container, Forward_Iterator multi_array)
 	// Write your code here ...
 	
 	if constexpr (N > 1)
-		for (auto i = 0; i < container.size(); ++i)
-			fill_multi_array < N - 1 > (*std::next(std::begin(container), i), std::begin(*multi_array));
+		for (const auto& sub_container : container)
+			fill_multi_array < N - 1 >(sub_container, (multi_array++)->begin());
 	else
-		for (auto i = 0; i < container.size(); ++i)
-			*std::next(multi_array, i) = container[i];
+		for (const auto& element : container)
+			*(multi_array++) = element;
 
 	// USE: recursive template instantiation of fill_multi_array
 	// USE: std::next(multi_array, i)->begin() in recursion
